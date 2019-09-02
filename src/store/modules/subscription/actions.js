@@ -5,23 +5,22 @@ export function subscriptionRequest(id) {
   };
 }
 
-export function subscriptionSuccess(subscription) {
+export function subscriptionSuccess() {
   return {
     type: '@subscription/SUBSCRIPTION_SUCCESS',
-    payload: { subscription },
   };
 }
 
 export function subscriptionCancelRequest(id) {
   return {
-    type: '@subscription/CANCEL_SUBSCRIPTION_REQUEST',
+    type: '@subscription/SUBSCRIPTION_CANCEL_REQUEST',
     payload: { id },
   };
 }
 
 export function subscriptionCancelSuccess() {
   return {
-    type: '@subscription/CANCEL_SUBSCRIPTION_SUCCESS',
+    type: '@subscription/SUBSCRIPTION_CANCEL_SUCCESS',
   };
 }
 

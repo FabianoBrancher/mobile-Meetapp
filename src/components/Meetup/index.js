@@ -15,9 +15,19 @@ import {
   SubscribeButton,
 } from './styles';
 
-export default function Meetup({ meetup, handleSubscription }) {
+export default function Meetup({
+  meetup,
+  idMeetup,
+  handleSubscription,
+  handleCancelSubscription,
+}) {
   function handleSubscribe(id) {
     handleSubscription(id);
+  }
+
+  function handleUnsubscribe(id) {
+    console.tron.log(id);
+    handleCancelSubscription(id);
   }
 
   return (
@@ -26,7 +36,7 @@ export default function Meetup({ meetup, handleSubscription }) {
         source={{ uri: meetup.banner ? meetup.banner.url : defaultBanner }}
       />
       <Details>
-        <Title> {meetup.title} </Title>
+        <Title>{meetup.title}</Title>
         <Date>
           <Icon name="event" size={15} color="#999" />
           <Text>{meetup.dateFormatted}</Text>
@@ -39,9 +49,15 @@ export default function Meetup({ meetup, handleSubscription }) {
           <Icon name="person" size={15} color="#999" />
           <Text>Organizador: {meetup.owner.name}</Text>
         </Owner>
-        <SubscribeButton onPress={() => handleSubscribe(meetup.id)}>
-          Realizar inscrição
-        </SubscribeButton>
+        {handleSubscription ? (
+          <SubscribeButton onPress={() => handleSubscribe(meetup.id)}>
+            Realizar inscrição
+          </SubscribeButton>
+        ) : (
+          <SubscribeButton onPress={() => handleUnsubscribe(idMeetup)}>
+            Cancelar inscrição
+          </SubscribeButton>
+        )}
       </Details>
     </Container>
   );

@@ -11,7 +11,7 @@ export default function subscription(state = INITIAL_STATE, action) {
         draft.subscription = action.payload.subscription;
         break;
       }
-      case '@subscription/CANCEL_SUBSCRIPTION_SUCCESS': {
+      case '@subscription/SUBSCRIPTION_CANCEL_SUCCESS': {
         draft.subscription = null;
         break;
       }

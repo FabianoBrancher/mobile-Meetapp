@@ -1,22 +1,22 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects';
 import { Alert } from 'react-native';
 
-import api from '~/services/api';
-
 import {
   subscriptionSuccess,
   subscriptionCancelSuccess,
   subscriptionFailure,
 } from './actions';
 
+import api from '~/services/api';
+
 export function* subscribe({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.post, `meetups/${id}/subscription`);
+    yield call(api.post, `meetups/${id}/subscription`);
 
     Alert.alert('Sucesso', 'Você agora está inscrito neste meetup');
 
-    yield put(subscriptionSuccess(response.data));
+    yield put(subscriptionSuccess());
   } catch (err) {
     Alert.alert('Erro', `${err.response.data.error}`);
 
@@ -27,7 +27,7 @@ export function* subscribe({ payload }) {
 export function* unsubscribe({ payload }) {
   try {
     const { id } = payload;
-    yield api.delete(`/subscriptions/${id}`);
+    yield call(api.delete, `meetups/${id}/unsubscribe`);
 
     Alert.alert('Sucesso', 'Meetup cancelado com sucesso');
 
